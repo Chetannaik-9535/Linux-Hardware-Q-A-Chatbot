@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  hw-assistant-ui:
+    build: .
+    container_name: hw-assistant-ui
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    environment:
+      - LLM_PROVIDER=mock
+      - HW_MOCK=auto
+      - MOCK_PROFILE=thinkpad_x1
+    # For inspecting host Linux hardware from container:
+    # privileged: true
+    # volumes:
+    #   - /proc:/host/proc:ro
+    #   - /sys:/host/sys:ro
+
+  hw-assistant-api:
+    build: .
+    container_name: hw-assistant-api
+    restart: unless-stopped
+    command: ["uvicorn", "hw_assistant.api.app:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "8000:8000"
+    environment:
+      - LLM_PROVIDER=mock
+      - HW_MOCK=auto

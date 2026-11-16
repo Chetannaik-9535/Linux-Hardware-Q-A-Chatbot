@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linux-hardware-assistant"
+version = "1.0.0"
+description = "A secure local Linux Hardware Q&A Assistant with LLM tool-calling"
+authors = [{ name = "AI Engineering Interview Candidate" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.29.0",
+    "streamlit>=1.33.0",
+    "httpx>=0.27.0",
+    "anthropic>=0.25.0",
+    "rich>=13.7.0",
+    "python-dotenv>=1.0.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.1.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=5.0.0",
+]
+
+[project.scripts]
+hw-assistant = "hw_assistant.cli.main:main"
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]
+
+
